@@ -1,17 +1,10 @@
----
-title: "My awesome website"
-output: 
-  html_document:
-    toc: true
-    toc_float: true
-    theme: cerulean
----
-
 # This is Jeff's awesome website
 
 ![](https://media.giphy.com/media/drXGoW1iudhKw/giphy.gif)
 
 [text for link](google.com)
+
+[link](about.html)
 
 # <img src="images/image.jpg" style="width:75%">
 
