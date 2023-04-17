@@ -9,3 +9,9 @@
 # <img src="images/image.jpg" style="width:75%">
 
 
+# Create header in _site.yml document
+There are several ways you can arrange the nav bar (right vs. left; single pages vs. drop-down menus) but the idea is to give a way to navigate through your site, not just your page. The two icons are there to encourage good practices – an easy way for someone to email you, and a link to the source for the site on GitHub (icons come from font awesome). I’ve also included an “About” page, which is pretty common for pages describing projects.
+
+
+
+

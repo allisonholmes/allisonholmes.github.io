@@ -1,14 +1,25 @@
-name: "Yay internet!"
+name: "Allison's website"
 output_dir: "."
 navbar:
   title: "Home"
+  left:
+  - text: "Code Samples"
+    menu:
+    - text: "R"
+      href: R_sample.html
+    - text: "SAS"
+    - text: "SQL"
   right:
     - text: "About"
       href: about.html
     - icon: fa-envelope fa-lg
-      href: mailto:<you@youremail.com>
+      href: mailto:allison.holmes@caa.columbia.edu
     - icon: fa-github fa-lg
-      href: http://github.com/<YOUR_GH_NAME>/
+      href: https://github.com/allisonholmes
+    - icon: fa-linkedin fa-lg
+      href: https://linkedin.com/in/allisonlholmes
+  
 output:
   html_document:
+    toc: true
     theme: cerulean

@@ -1,0 +1,2566 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Allison Holmes" />
+
+<meta name="date" content="2023-04-17" />
+
+<title>R Code Samples</title>
+
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Code Samples
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="R_sample.html">R</a>
+    </li>
+    <li class="dropdown-header">SAS</li>
+    <li class="dropdown-header">SQL</li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mailto:allison.holmes@caa.columbia.edu">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://github.com/allisonholmes">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://linkedin.com/in/allisonlholmes">
+    <span class="fa fa-linkedin fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">R Code Samples</h1>
+<h4 class="author">Allison Holmes</h4>
+<h4 class="date">04/17/2023</h4>
+
+</div>
+
+
+<div id="datasets" class="section level3">
+<h3>Datasets</h3>
+<p><strong>Biometrics Dataset:</strong> contains nine skeletal
+measurements and twelve girth measurements along with age, weight,
+height, and gender.</p>
+<p><strong>Cancer Dataset:</strong> contains data on tumor types and
+hypermethylation genes</p>
+<p><strong>Compliance Dataset:</strong> dataset of treatment compliance
+for a 10-week study on physical activity and cognitive functioning.</p>
+<p><strong>OCD Dataset:</strong> dataset of a small observational study
+on OCD. Patients were measured using the YBOCS scale over eight
+months.</p>
+<p><strong>NYC COVID-19 Dataset:</strong> US State-level COVID-19
+dataset from the New York Times data portal.</p>
+<pre class="r"><code># Biometrics dataset
+biometrics_raw &lt;- read_excel(&#39;Datasets/biometrics.xls&#39;, sheet = 2)
+
+# Cancer dataset
+cancer &lt;- read_csv(&#39;Datasets/cancer_genes.csv&#39;, skip = 2) %&gt;%
+  drop_na(hyper_methylation) 
+
+# Compliance dataset
+compliance &lt;- read_csv(&#39;Datasets/activity_compliance.csv&#39;) %&gt;%
+  mutate(compliant = if_else(is.na(compliant), 0, compliant))
+
+# OCD dataset
+ocd_longitudinal &lt;- read_csv(&#39;Datasets/ocd_longitudinal.csv&#39;)
+ocd_demos &lt;- read_csv(&#39;Datasets/ocd_demos.csv&#39;)
+
+# COVID-19 dataset
+covid_raw &lt;- read_csv(&quot;https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv&quot;)</code></pre>
+</div>
+<div id="data-manipulation" class="section level1">
+<h1>Data Manipulation</h1>
+<div id="filter-and-create-new-variables" class="section level3">
+<h3>Filter and create new variables</h3>
+<pre class="r"><code># biometrics dataset manipulation
+biometrics_girth &lt;- biometrics_raw %&gt;%
+# filter to selected variables - demography and all girth measurements
+  select(id, height, weight, gender, contains(&quot;girth&quot;)) %&gt;%
+  
+# create new calculated variables
+  mutate(bmi = round(weight/(height/100)^2,1)) %&gt;%  #BMI
+  mutate(navel_thigh_girth = navel_girth + thigh_girth) %&gt;% # combined navel, thigh girth
+
+# create categorical variable for BMI
+  mutate(bmi_cat = case_when(bmi &lt; 18.5 ~ &quot;Underweight&quot;,
+                             bmi &gt;=18.5 &amp; bmi &lt; 25 ~ &quot;Normal&quot;,
+                             bmi &gt;=25 &amp; bmi &lt; 30 ~ &quot;Overweight&quot;,
+                             bmi &gt;= 30 ~ &quot;Obese&quot;)) %&gt;%
+
+# factor categorical variables
+  mutate(bmi_fac = factor(bmi_cat, levels = c(&quot;Underweight&quot;,&quot;Normal&quot;, &quot;Overweight&quot;,
+                                              &quot;Obese&quot;)))</code></pre>
+</div>
+<div id="summarize-data" class="section level3">
+<h3>Summarize data</h3>
+<pre class="r"><code># compliance dataset summarization of proportion by week:
+proportion_by_week &lt;- compliance %&gt;% 
+  group_by(week, compliant) %&gt;%
+  summarize(n = n()) %&gt;%
+  mutate(compliance_proportion = n / sum(n),
+         sd = sd(compliance_proportion),
+         se = sd/(sqrt(n)),
+         lower_ci = compliance_proportion - (1.96*se),
+         upper_ci = compliance_proportion + (1.96*se)) %&gt;%
+  filter(compliant == 1) %&gt;%
+  select(week, compliance_proportion, lower_ci, upper_ci)
+
+# print results
+kable(proportion_by_week)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">week</th>
+<th align="right">compliance_proportion</th>
+<th align="right">lower_ci</th>
+<th align="right">upper_ci</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">0.8000000</td>
+<td align="right">0.6799750</td>
+<td align="right">0.9200250</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">0.7500000</td>
+<td align="right">0.6466989</td>
+<td align="right">0.8533011</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">0.6500000</td>
+<td align="right">0.5834221</td>
+<td align="right">0.7165779</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">0.7500000</td>
+<td align="right">0.6466989</td>
+<td align="right">0.8533011</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">0.5666667</td>
+<td align="right">0.5349753</td>
+<td align="right">0.5983580</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">0.5166667</td>
+<td align="right">0.5083693</td>
+<td align="right">0.5249640</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">0.4666667</td>
+<td align="right">0.4492056</td>
+<td align="right">0.4841277</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">0.6666667</td>
+<td align="right">0.5936218</td>
+<td align="right">0.7397116</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">0.6166667</td>
+<td align="right">0.5635027</td>
+<td align="right">0.6698306</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">0.5166667</td>
+<td align="right">0.5083693</td>
+<td align="right">0.5249640</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="joins" class="section level3">
+<h3>Joins</h3>
+<pre class="r"><code># inner join OCD dataset
+ocd &lt;- inner_join(ocd_longitudinal, ocd_demos, by = &quot;study_id&quot;)</code></pre>
+</div>
+<div id="pivot-data-and-string-manipulation" class="section level3">
+<h3>Pivot data and String manipulation</h3>
+<pre class="r"><code># pivot ocd dataset longer
+ocd_long &lt;- ocd %&gt;%
+  pivot_longer(cols = starts_with(&quot;ybocs&quot;),
+               names_to = &quot;month&quot;,
+               values_to = &quot;ybocs_score&quot;,
+               names_transform = list(&quot;month&quot; = function(str){
+                 step1 &lt;- str_remove(str, &quot;ybocs_m&quot;)  # remove prefix
+                 step2 &lt;- as.numeric(step1)   # code month as numeric
+                 return(step2)
+               })) %&gt;%
+# create remission variable
+  mutate(remission = if_else(ybocs_score &lt;= 15, &quot;1&quot;, &quot;0&quot;)) %&gt;%
+  # factor remission variable and study_id for visualization
+  arrange(study_id) %&gt;%
+  mutate(study_id = factor(study_id, levels = unique(study_id)),
+         rem_fac = factor(remission, levels = c(0, 1))) %&gt;%
+# create age categorical variable
+  mutate(age_cat = if_else(age &lt; 18, &quot;minor&quot;, &quot;adult&quot;))</code></pre>
+</div>
+</div>
+<div id="statistical-analysis" class="section level1">
+<h1>Statistical Analysis</h1>
+<div id="t-test" class="section level3">
+<h3>T test</h3>
+<pre class="r"><code># example t-test between ankle diameter measure and gender
+
+# unequal variance
+ankle_res &lt;- t.test(ankle_diameter ~ gender, data = biometrics_raw)
+
+# pull results to objects
+t_stat &lt;- ankle_res$statistic   # t statistic
+df &lt;- ankle_res$parameter   # degrees of freedom
+p_val &lt;- ankle_res$p.value  # p-value
+ci_lower &lt;- ankle_res$conf.int[1]  # 95% confidence interval
+ci_upper &lt;- ankle_res$conf.int[2]
+
+# create tibble of results and print
+ankle_res_tidy &lt;- tidy(ankle_res)
+kable(ankle_res_tidy)</code></pre>
+<table>
+<colgroup>
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="7%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="21%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">estimate</th>
+<th align="right">estimate1</th>
+<th align="right">estimate2</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+<th align="right">parameter</th>
+<th align="right">conf.low</th>
+<th align="right">conf.high</th>
+<th align="left">method</th>
+<th align="left">alternative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-1.717591</td>
+<td align="right">13.02654</td>
+<td align="right">14.74413</td>
+<td align="right">-21.3131</td>
+<td align="right">0</td>
+<td align="right">495.6447</td>
+<td align="right">-1.875928</td>
+<td align="right">-1.559254</td>
+<td align="left">Welch Two Sample t-test</td>
+<td align="left">two.sided</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># interpret using in-line code</code></pre>
+<p><strong>Interpretation:</strong> At the 5% level of significance, we
+reject the null hypothesis that there is no mean difference in ankle
+diameter between gender groups (t=-21.31, df=495.64, p&lt;0.0001). We
+are 95% confident that the true mean difference in ankle diameter
+between females and males lies between -1.88 and -1.56.</p>
+</div>
+<div id="permutation-test-and-function-writing" class="section level3">
+<h3>Permutation Test (and function writing)</h3>
+<pre class="r"><code># create a function to calculate the test statistic
+calculate_ts &lt;- function(df){
+  summary &lt;- df %&gt;%
+    group_by(gender) %&gt;%
+    summarize(mean_ank = mean(ankle_diameter))
+
+  female_ank &lt;- summary %&gt;%
+    filter(gender == &quot;Female&quot;) %&gt;%
+    pull(mean_ank)
+
+  male_ank &lt;- summary %&gt;%
+    filter(gender == &quot;Male&quot;) %&gt;%
+    pull(mean_ank)
+
+  difference &lt;- female_ank - male_ank
+  return(difference)
+}
+
+# calculate observed test statistic with function
+obs_stat &lt;- calculate_ts(biometrics_raw)
+
+# create a function to perform a single permutation
+perform_permutation &lt;- function(df){
+  permuted &lt;- df %&gt;%
+    mutate(gender = sample(gender)) # performs a permutation with sample()
+  return(permuted)
+}
+
+# combine functions
+get_permutation_ts &lt;- function(df){
+  permed &lt;- perform_permutation(df)
+  ts &lt;- calculate_ts(permed)
+  return(ts)
+}
+
+# simulate 2000 test statistics with map function
+results &lt;- map_dbl(1:2000, function(x) get_permutation_ts(biometrics_raw))
+# put results into a tibble
+perm_results &lt;- tibble(sim_stat = results)
+
+# calculate p-value - proportion of simulated test statistics whose absolute value is greater than or equal to the observed test statistic
+perm_pval &lt;- perm_results %&gt;%
+  mutate(abs_val_greater = if_else(abs(sim_stat) &gt;= abs(obs_stat), 1, 0)) %&gt;%
+  group_by(abs_val_greater) %&gt;%
+  summarize(n_obs = n()) %&gt;%
+  mutate(proportion = n_obs/sum(n_obs)) %&gt;%
+  filter(abs_val_greater == 1) %&gt;%
+  pull(proportion)
+
+
+# create histogram comparing permuted test statistics to the observed difference in means
+ggplot(data = perm_results) +
+  geom_histogram(aes(x = sim_stat), fill = &quot;darkgrey&quot;, color = &quot;white&quot;) +
+  geom_vline(aes(xintercept = obs_stat), color = &quot;red&quot;, linetype = &quot;dashed&quot;) +
+  theme_bw() +
+  labs(x = &quot;Simulated Test Statistics&quot;, y = &quot;Count&quot;) +
+  annotate(geom = &quot;text&quot;, x = -0.8, y = 410, label = &quot;Observed Test Statistic = -1.72&quot;, color = &quot;red&quot;)</code></pre>
+<p><img src="R_sample_files/figure-html/permutation%20test-1.png" width="672" /></p>
+<p><strong>Interpretation:</strong> At the 5% level of significance, we
+reject the null hypothesis that there is no mean difference in ankle
+diameter between gender groups (p&lt;0.0001).</p>
+</div>
+<div id="regression" class="section level3">
+<h3>Regression</h3>
+<pre class="r"><code># create binary outcomes overweight and obese for logistic regression
+biometrics_log &lt;- biometrics_raw %&gt;%
+  mutate(bmi = round(weight/(height/100)^2,1)) %&gt;%
+  mutate(overweight = if_else(bmi &gt;=25, 1, 0),
+         obese = if_else(bmi &gt;=30, 1, 0))
+
+### COVARIATE EXPLORATION ###
+# overweight outcome, thigh girth predictor, adjusted for gender
+thigh_overweight &lt;- glm(overweight ~ thigh_girth + gender, family = &quot;binomial&quot;, 
+                        data = biometrics_log)
+
+# obese outcome, thigh girth predictor, adjusted for gender
+thigh_obese &lt;- glm(obese ~ thigh_girth + gender, family = &quot;binomial&quot;, 
+                        data = biometrics_log)
+
+# overweight outcome, wrist girth predictor, adjusted for gender
+wrist_overweight &lt;- glm(overweight ~ wrist_girth + gender, family = &quot;binomial&quot;, 
+                        data = biometrics_log)
+
+# obese outcome, wrist girth predictor, adjusted for gender
+wrist_obese &lt;- glm(obese ~ wrist_girth + gender, family = &quot;binomial&quot;, 
+                        data = biometrics_log)
+
+# overweight outcome, waist girth predictor, adjusted for gender
+waist_overweight &lt;- glm(overweight ~ waist_girth + gender, family = &quot;binomial&quot;, 
+                        data = biometrics_log)
+
+# obese outcome, waist girth predictor, adjusted for gender
+waist_obese &lt;- glm(obese ~ waist_girth + gender, family = &quot;binomial&quot;, 
+                        data = biometrics_log)
+tbl_regression(waist_obese, exponentiate = TRUE)</code></pre>
+<div id="qxuidgiaqo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#qxuidgiaqo .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#qxuidgiaqo .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#qxuidgiaqo .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#qxuidgiaqo .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#qxuidgiaqo .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#qxuidgiaqo .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qxuidgiaqo .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#qxuidgiaqo .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#qxuidgiaqo .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#qxuidgiaqo .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#qxuidgiaqo .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#qxuidgiaqo .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#qxuidgiaqo .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#qxuidgiaqo .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#qxuidgiaqo .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#qxuidgiaqo .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#qxuidgiaqo .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#qxuidgiaqo .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qxuidgiaqo .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#qxuidgiaqo .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#qxuidgiaqo .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qxuidgiaqo .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#qxuidgiaqo .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#qxuidgiaqo .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qxuidgiaqo .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qxuidgiaqo .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#qxuidgiaqo .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#qxuidgiaqo .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qxuidgiaqo .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#qxuidgiaqo .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qxuidgiaqo .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#qxuidgiaqo .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qxuidgiaqo .gt_left {
+  text-align: left;
+}
+
+#qxuidgiaqo .gt_center {
+  text-align: center;
+}
+
+#qxuidgiaqo .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#qxuidgiaqo .gt_font_normal {
+  font-weight: normal;
+}
+
+#qxuidgiaqo .gt_font_bold {
+  font-weight: bold;
+}
+
+#qxuidgiaqo .gt_font_italic {
+  font-style: italic;
+}
+
+#qxuidgiaqo .gt_super {
+  font-size: 65%;
+}
+
+#qxuidgiaqo .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#qxuidgiaqo .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#qxuidgiaqo .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#qxuidgiaqo .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#qxuidgiaqo .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#qxuidgiaqo .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#qxuidgiaqo .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;Characteristic&lt;/strong&gt;"><strong>Characteristic</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;OR&lt;/strong&gt;&lt;sup class=&quot;gt_footnote_marks&quot;&gt;1&lt;/sup&gt;"><strong>OR</strong><sup class="gt_footnote_marks">1</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;95% CI&lt;/strong&gt;&lt;sup class=&quot;gt_footnote_marks&quot;&gt;1&lt;/sup&gt;"><strong>95% CI</strong><sup class="gt_footnote_marks">1</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;p-value&lt;/strong&gt;"><strong>p-value</strong></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="label" class="gt_row gt_left">waist_girth</td>
+<td headers="estimate" class="gt_row gt_center">1.30</td>
+<td headers="ci" class="gt_row gt_center">1.21, 1.43</td>
+<td headers="p.value" class="gt_row gt_center"><0.001</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">gender</td>
+<td headers="estimate" class="gt_row gt_center"></td>
+<td headers="ci" class="gt_row gt_center"></td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    Female</td>
+<td headers="estimate" class="gt_row gt_center">—</td>
+<td headers="ci" class="gt_row gt_center">—</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    Male</td>
+<td headers="estimate" class="gt_row gt_center">0.02</td>
+<td headers="ci" class="gt_row gt_center">0.00, 0.11</td>
+<td headers="p.value" class="gt_row gt_center"><0.001</td></tr>
+  </tbody>
+  
+  <tfoot class="gt_footnotes">
+    <tr>
+      <td class="gt_footnote" colspan="4"><sup class="gt_footnote_marks">1</sup> OR = Odds Ratio, CI = Confidence Interval</td>
+    </tr>
+  </tfoot>
+</table>
+</div>
+<pre class="r"><code># exploratory results visualized in FOREST PLOT</code></pre>
+<p><strong>Example Interpretation:</strong> At the 5% level of
+significance, we reject the null hypothesis that there is no significant
+difference in waist girth between those who are obese (BMI&gt;=30) and
+those who are not obese (p=&lt;0.001). For every 1cm increase in waist
+girth, the odds of being obese increases by a factor of 1.30 on average,
+adjusting for gender.</p>
+<pre class="r"><code>### MULTIVARIATE LOGISTIC MODEL ###
+
+mult_obese &lt;- glm(obese ~ waist_girth + wrist_girth + thigh_girth + gender, 
+                  family = &quot;binomial&quot;, data = biometrics_log)
+
+tbl_regression(mult_obese, exponentiate = TRUE)</code></pre>
+<div id="yxwedqxqhs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#yxwedqxqhs .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#yxwedqxqhs .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#yxwedqxqhs .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#yxwedqxqhs .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#yxwedqxqhs .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#yxwedqxqhs .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yxwedqxqhs .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#yxwedqxqhs .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#yxwedqxqhs .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#yxwedqxqhs .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#yxwedqxqhs .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#yxwedqxqhs .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#yxwedqxqhs .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#yxwedqxqhs .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#yxwedqxqhs .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#yxwedqxqhs .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#yxwedqxqhs .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#yxwedqxqhs .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yxwedqxqhs .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#yxwedqxqhs .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#yxwedqxqhs .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yxwedqxqhs .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#yxwedqxqhs .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#yxwedqxqhs .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yxwedqxqhs .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yxwedqxqhs .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#yxwedqxqhs .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#yxwedqxqhs .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yxwedqxqhs .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#yxwedqxqhs .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yxwedqxqhs .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#yxwedqxqhs .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yxwedqxqhs .gt_left {
+  text-align: left;
+}
+
+#yxwedqxqhs .gt_center {
+  text-align: center;
+}
+
+#yxwedqxqhs .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#yxwedqxqhs .gt_font_normal {
+  font-weight: normal;
+}
+
+#yxwedqxqhs .gt_font_bold {
+  font-weight: bold;
+}
+
+#yxwedqxqhs .gt_font_italic {
+  font-style: italic;
+}
+
+#yxwedqxqhs .gt_super {
+  font-size: 65%;
+}
+
+#yxwedqxqhs .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#yxwedqxqhs .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#yxwedqxqhs .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#yxwedqxqhs .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#yxwedqxqhs .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#yxwedqxqhs .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#yxwedqxqhs .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;Characteristic&lt;/strong&gt;"><strong>Characteristic</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;OR&lt;/strong&gt;&lt;sup class=&quot;gt_footnote_marks&quot;&gt;1&lt;/sup&gt;"><strong>OR</strong><sup class="gt_footnote_marks">1</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;95% CI&lt;/strong&gt;&lt;sup class=&quot;gt_footnote_marks&quot;&gt;1&lt;/sup&gt;"><strong>95% CI</strong><sup class="gt_footnote_marks">1</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;p-value&lt;/strong&gt;"><strong>p-value</strong></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="label" class="gt_row gt_left">waist_girth</td>
+<td headers="estimate" class="gt_row gt_center">1.31</td>
+<td headers="ci" class="gt_row gt_center">1.19, 1.49</td>
+<td headers="p.value" class="gt_row gt_center"><0.001</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">wrist_girth</td>
+<td headers="estimate" class="gt_row gt_center">0.94</td>
+<td headers="ci" class="gt_row gt_center">0.43, 2.04</td>
+<td headers="p.value" class="gt_row gt_center">0.9</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">thigh_girth</td>
+<td headers="estimate" class="gt_row gt_center">1.32</td>
+<td headers="ci" class="gt_row gt_center">1.15, 1.56</td>
+<td headers="p.value" class="gt_row gt_center"><0.001</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">gender</td>
+<td headers="estimate" class="gt_row gt_center"></td>
+<td headers="ci" class="gt_row gt_center"></td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    Female</td>
+<td headers="estimate" class="gt_row gt_center">—</td>
+<td headers="ci" class="gt_row gt_center">—</td>
+<td headers="p.value" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    Male</td>
+<td headers="estimate" class="gt_row gt_center">0.04</td>
+<td headers="ci" class="gt_row gt_center">0.00, 0.37</td>
+<td headers="p.value" class="gt_row gt_center">0.006</td></tr>
+  </tbody>
+  
+  <tfoot class="gt_footnotes">
+    <tr>
+      <td class="gt_footnote" colspan="4"><sup class="gt_footnote_marks">1</sup> OR = Odds Ratio, CI = Confidence Interval</td>
+    </tr>
+  </tfoot>
+</table>
+</div>
+</div>
+</div>
+<div id="visualizations" class="section level1">
+<h1>Visualizations</h1>
+<div id="histograms" class="section level3">
+<h3>Histograms</h3>
+<pre class="r"><code># graph of distribution of combined navel and thigh girth variable
+ggplot(data = biometrics_girth) +
+  geom_histogram(aes(x = navel_thigh_girth), color = &quot;white&quot;, fill=&#39;darkgrey&#39;) +
+  theme_bw() +
+  labs(title = &quot;Distribution of Combined Navel and Thigh Girth&quot;, x = &quot;Navel and Thigh Girth&quot;, y = &quot;Count&quot;)</code></pre>
+<p><img src="R_sample_files/figure-html/histogram-1.png" width="672" /></p>
+</div>
+<div id="boxplots" class="section level3">
+<h3>Boxplots</h3>
+<pre class="r"><code># distribution of combined navel and thigh girth variable, divided by gender
+ggplot(data = biometrics_girth) +
+  geom_boxplot(aes(y = navel_thigh_girth, x = gender), fill=&#39;darkgrey&#39;) +
+  theme_bw() +
+  labs(title = &quot;Distribution of Combined Navel and Thigh Girth&quot;, 
+       y = &quot;Navel and Thigh Girth&quot;, x = &quot;Gender&quot;)</code></pre>
+<p><img src="R_sample_files/figure-html/boxplots-1.png" width="672" /></p>
+</div>
+<div id="scatterplots" class="section level3">
+<h3>Scatterplots</h3>
+<pre class="r"><code># exploratory scatterplot for the relationship between continuous BMI and navel+thigh combined girth variable
+ggplot(data = biometrics_girth) +
+  # scatterplot
+  geom_point(aes(x = bmi, y = navel_thigh_girth)) + 
+  # linear best fit line
+  geom_smooth(aes(x = bmi, y = navel_thigh_girth), method = &#39;lm&#39;, se = FALSE, 
+              color = &#39;red&#39;) +
+  labs(title = &quot;Relationship between BMI and Combined Navel and Thigh Girth&quot;, 
+       y = &quot;Navel and Thigh Girth&quot;, x = &quot;BMI&quot;) + 
+  theme_bw()</code></pre>
+<p><img src="R_sample_files/figure-html/scatterplot-1.png" width="672" /></p>
+<pre class="r"><code># faceted scatterplots of BMI and navel+thigh combined girth by BMI category and gender
+ggplot(data = biometrics_girth) +
+  geom_point(aes(x = bmi, y = navel_thigh_girth)) + 
+  geom_smooth(aes(x = bmi, y = navel_thigh_girth), method = &#39;lm&#39;, se = FALSE, 
+              color = &#39;red&#39;) +
+  facet_grid(bmi_fac~gender) + 
+  theme_bw() +
+  labs(title = &quot;Relationship between BMI and Combined Navel and Thigh Girth,&quot;, subtitle= &quot;by BMI category and gender&quot;, y = &quot;Combined Navel and Thigh Girth&quot;, x = &quot;BMI&quot;)</code></pre>
+<p><img src="R_sample_files/figure-html/scatterplot-2.png" width="672" /></p>
+</div>
+<div id="heatmaps" class="section level3">
+<h3>Heatmaps</h3>
+<pre class="r"><code># heatmap of tumor types and genes, with color indicating severity of hypermethylation in cancer dataset
+ggplot(data = cancer) +
+  geom_tile(aes(y = tumor_type, x = gene, fill = hyper_methylation)) +
+  labs(y = &quot;Tumor Type&quot;, x = &quot;Gene&quot;, fill = &quot;Hyper Methylation&quot;, title = &quot;Hyper Methylation Values by Tumor Type and Gene&quot;) +
+  theme(axis.text.x = element_text(angle = 90)) + 
+  scale_fill_gradient(high = &quot;darkred&quot;, low = &quot;white&quot;)</code></pre>
+<p><img src="R_sample_files/figure-html/heatmap-1.png" width="672" /></p>
+</div>
+<div id="spaghetti-plots" class="section level3">
+<h3>Spaghetti Plots</h3>
+<pre class="r"><code># spaghetti plot showing YBOCS scores over time for all individuals in OCD dataset
+ggplot(data = ocd_long) +
+  geom_line(aes(x = month, y = ybocs_score, group = study_id), alpha=0.5) + 
+  theme_bw() +
+  labs(x = &quot;Month&quot;, y = &quot;YBOCS Score&quot;, title = &quot;Patient YBOCS Scores by Month&quot;) +
+  scale_x_continuous(breaks = 1:8, labels = scales::label_number(prefix = &quot;Month &quot;))</code></pre>
+<p><img src="R_sample_files/figure-html/spaghetti-1.png" width="672" /></p>
+</div>
+<div id="lasagna-plots" class="section level3">
+<h3>Lasagna Plots</h3>
+<pre class="r"><code># plot showing the binary remission variable over time for each individual, factored by minor status
+ggplot(data = ocd_long) +
+  geom_tile(aes(x = month, y = study_id, fill = rem_fac), color = &quot;black&quot;) +
+  labs(x = &quot;Month&quot;, y = &quot;Patient ID&quot;, title = &quot;Patient Remission Status by Month&quot;,
+       fill = &quot;Remission Status&quot;) +
+  theme(legend.position = &quot;bottom&quot;,
+        panel.background = element_rect(fill=&quot;white&quot;)) +
+  scale_x_continuous(breaks = 1:8) +
+  scale_fill_manual(values = c(&quot;grey&quot;, &quot;darkblue&quot;)) +
+  facet_wrap(~age_cat, scales = &quot;free&quot;)</code></pre>
+<p><img src="R_sample_files/figure-html/lasagna-1.png" width="672" /></p>
+</div>
+<div id="forest-plots" class="section level3">
+<h3>Forest Plots</h3>
+<pre class="r"><code># visualize exploratory variable Odds Radios from logistic regressions with biometrics dataset
+
+# put ORs and CIs into dataframes, create outcome variable
+OR_thigh_overweight &lt;- tidy(thigh_overweight, exponentiate = TRUE, conf.int = TRUE) %&gt;%
+  mutate(outcome = &quot;overweight&quot;)
+OR_thigh_obese &lt;- tidy(thigh_obese, exponentiate = TRUE, conf.int = TRUE) %&gt;%
+  mutate(outcome = &quot;obese&quot;)
+OR_wrist_overweight &lt;- tidy(wrist_overweight, exponentiate = TRUE, conf.int = TRUE) %&gt;%
+  mutate(outcome = &quot;overweight&quot;)
+OR_wrist_obese &lt;- tidy(wrist_obese, exponentiate = TRUE, conf.int = TRUE) %&gt;%
+  mutate(outcome = &quot;obese&quot;)
+OR_waist_overweight &lt;- tidy(waist_overweight, exponentiate = TRUE, conf.int = TRUE) %&gt;%
+  mutate(outcome = &quot;overweight&quot;)
+OR_waist_obese &lt;- tidy(waist_obese, exponentiate = TRUE, conf.int = TRUE) %&gt;%
+  mutate(outcome = &quot;obese&quot;)
+
+# combine OR dataframes to plot
+all_ORs &lt;- OR_thigh_overweight %&gt;%
+  bind_rows(OR_thigh_obese) %&gt;%
+  bind_rows(OR_wrist_overweight) %&gt;%
+  bind_rows(OR_wrist_obese) %&gt;%
+  bind_rows(OR_waist_overweight) %&gt;%
+  bind_rows(OR_waist_obese) %&gt;%
+# filter to only predictors of interest
+  filter(str_detect(term, &quot;girth&quot;)) %&gt;%
+# labels for plot
+  mutate(term_lab = str_remove(term, &quot;_girth&quot;)) %&gt;%
+  mutate(outcome_lab = if_else(outcome == &quot;obese&quot;, 
+                               &quot;Obese (BMI&gt;=30)&quot;, &quot;Overweight (BMI&gt;=25)&quot;))
+
+# create forest plot summary of ORs
+ggplot(data = all_ORs) +
+  geom_point(aes(x = estimate, y = term_lab)) +
+  geom_errorbar(aes(xmin = conf.low, xmax = conf.high, y = term_lab), width = 0.2) +
+        # width to change width of error bars
+  facet_wrap(~outcome_lab, ncol = 1) +
+  labs(x = &quot;Odds Ratio&quot;, y = &quot;Girth (cm)&quot;) + 
+  geom_vline(aes(xintercept = 1.0), linetype = &quot;dashed&quot;) +
+  scale_x_continuous(breaks = seq(from=0.0, to=5.0, by=0.5), limits = c(0,5)) +
+  theme_bw()</code></pre>
+<p><img src="R_sample_files/figure-html/forest%20plot-1.png" width="672" /></p>
+</div>
+<div id="custommixed-plots" class="section level3">
+<h3>Custom/Mixed Plots</h3>
+<pre class="r"><code># shows the proportion of compliant individuals and 95% confidence interval per week over target compliance rate from compliance dataset
+ggplot(data = proportion_by_week) +
+  geom_pointrange(aes(x = week, y = compliance_proportion, ymax = upper_ci, ymin = lower_ci)) + 
+  geom_line(aes(x = week, y = compliance_proportion), linetype = &quot;dotted&quot;) +
+  geom_hline(aes(yintercept = 0.65), color = &quot;darkblue&quot;, linetype = &quot;dashed&quot;) +
+  theme_bw() +
+  labs(title = &quot;Observed Proportion of Compliant Individuals by Week&quot;, 
+       x = &quot;Week&quot;, y = &quot;Proportion&quot;) +
+  scale_x_continuous(breaks = 1:10, labels = paste(&quot;Week&quot;, 1:10)) +
+  scale_y_continuous(limits = 0:1) +
+  annotate(geom = &quot;text&quot;, x = 8, y = 0.9, label = &quot;Target Compliance = 0.65&quot;, 
+           color = &quot;darkblue&quot;)</code></pre>
+<p><img src="R_sample_files/figure-html/custom-1.png" width="672" /></p>
+<pre class="r"><code># patchwork plot showing patient trajectories over time, faceted by minor status from OCD dataset
+lasagna &lt;- ggplot(data = ocd_long) +
+  geom_tile(aes(x = month, y = study_id, fill = rem_fac), color = &quot;black&quot;) +
+  labs(x = &quot;Month&quot;, y = &quot;Patient ID&quot;, title = &quot;Patient Remission Status by Month&quot;,
+       fill = &quot;Remission Status&quot;) +
+  theme(legend.position = &quot;bottom&quot;,
+        panel.background = element_rect(fill=&quot;white&quot;)) +
+  scale_x_continuous(breaks = 1:8) +
+  scale_fill_manual(values = c(&quot;grey&quot;, &quot;darkblue&quot;)) +
+  facet_wrap(~age_cat, scales = &quot;free&quot;)
+
+spaghetti &lt;- ggplot(data = ocd_long) +
+  geom_line(aes(x = month, y = ybocs_score, group = study_id), alpha=0.5) + 
+  theme_bw() +
+  labs(x = &quot;Month&quot;, y = &quot;YBOCS Score&quot;, title = &quot;Patient YBOCS Scores by Month&quot;) +
+  scale_x_continuous(breaks = 1:8, labels = scales::label_number(prefix = &quot;Month &quot;)) +
+  facet_wrap(~age_cat)
+
+lasagna / spaghetti +
+  plot_annotation(title = &quot;Patient Trajectories&quot;,
+                  theme = theme(plot.title = element_text(size=rel(1.5), face=&quot;bold&quot;)))</code></pre>
+<p><img src="R_sample_files/figure-html/custom-2.png" width="672" /></p>
+</div>
+<div id="descriptive-tables" class="section level3">
+<h3>Descriptive Tables</h3>
+<pre class="r"><code># labeled table presenting mean, standard deviation, minimum, median, maximum, p-value of t-test of continuous variables, split by gender
+biometrics_raw %&gt;%
+  select(gender, contains(&quot;girth&quot;)) %&gt;%
+  tbl_summary(by = gender,
+    statistic = all_continuous() ~ &quot;{mean} ({sd}), {min} {median} {max}&quot;,
+                  label = list(shoulder_girth ~ &quot;Shoulder Girth&quot;,
+                           chest_girth ~ &quot;Chest Girth&quot;,
+                           waist_girth ~ &quot;Waist Girth&quot;,
+                           navel_girth ~ &quot;Navel Girth&quot;,
+                           hip_girth ~ &quot;Hip Girth&quot;,
+                           thigh_girth ~ &quot;Thigh Girth&quot;,
+                           bicep_girth_flexed ~ &quot;Flexed Bicep Girth&quot;,
+                           forearm_girth ~ &quot;Forearm Girth&quot;,
+                           knee_girth ~ &quot;Knee Girth&quot;,
+                           calf_girth ~ &quot;Calf Girth&quot;,
+                           ankle_girth ~ &quot;Ankle Girth&quot;,
+                           wrist_girth ~ &quot;Wrist Girth&quot;)) %&gt;% 
+  add_p(test = all_continuous() ~ &quot;t.test&quot;,
+        test.args = all_tests(&quot;t.test&quot;) ~ list(var.equal = TRUE))</code></pre>
+<div id="ayixsffeqb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#ayixsffeqb .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ayixsffeqb .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ayixsffeqb .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#ayixsffeqb .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ayixsffeqb .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ayixsffeqb .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ayixsffeqb .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ayixsffeqb .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ayixsffeqb .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ayixsffeqb .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ayixsffeqb .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ayixsffeqb .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ayixsffeqb .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#ayixsffeqb .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ayixsffeqb .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ayixsffeqb .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ayixsffeqb .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ayixsffeqb .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ayixsffeqb .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#ayixsffeqb .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#ayixsffeqb .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ayixsffeqb .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#ayixsffeqb .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#ayixsffeqb .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ayixsffeqb .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ayixsffeqb .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ayixsffeqb .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ayixsffeqb .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ayixsffeqb .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ayixsffeqb .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ayixsffeqb .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ayixsffeqb .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ayixsffeqb .gt_left {
+  text-align: left;
+}
+
+#ayixsffeqb .gt_center {
+  text-align: center;
+}
+
+#ayixsffeqb .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ayixsffeqb .gt_font_normal {
+  font-weight: normal;
+}
+
+#ayixsffeqb .gt_font_bold {
+  font-weight: bold;
+}
+
+#ayixsffeqb .gt_font_italic {
+  font-style: italic;
+}
+
+#ayixsffeqb .gt_super {
+  font-size: 65%;
+}
+
+#ayixsffeqb .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#ayixsffeqb .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#ayixsffeqb .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#ayixsffeqb .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#ayixsffeqb .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#ayixsffeqb .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#ayixsffeqb .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;Characteristic&lt;/strong&gt;"><strong>Characteristic</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;Female&lt;/strong&gt;, N = 260&lt;sup class=&quot;gt_footnote_marks&quot;&gt;1&lt;/sup&gt;"><strong>Female</strong>, N = 260<sup class="gt_footnote_marks">1</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;Male&lt;/strong&gt;, N = 247&lt;sup class=&quot;gt_footnote_marks&quot;&gt;1&lt;/sup&gt;"><strong>Male</strong>, N = 247<sup class="gt_footnote_marks">1</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;p-value&lt;/strong&gt;&lt;sup class=&quot;gt_footnote_marks&quot;&gt;2&lt;/sup&gt;"><strong>p-value</strong><sup class="gt_footnote_marks">2</sup></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="label" class="gt_row gt_left">Shoulder Girth</td>
+<td headers="stat_1" class="gt_row gt_center">100 (6), 86 100 130</td>
+<td headers="stat_2" class="gt_row gt_center">117 (6), 100 116 135</td>
+<td headers="p.value" class="gt_row gt_center"><0.001</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">Chest Girth</td>
+<td headers="stat_1" class="gt_row gt_center">86 (6), 73 86 109</td>
+<td headers="stat_2" class="gt_row gt_center">101 (7), 79 101 119</td>
+<td headers="p.value" class="gt_row gt_center"><0.001</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">Waist Girth</td>
+<td headers="stat_1" class="gt_row gt_center">70 (8), 58 68 102</td>
+<td headers="stat_2" class="gt_row gt_center">85 (9), 67 83 113</td>
+<td headers="p.value" class="gt_row gt_center"><0.001</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">Navel Girth</td>
+<td headers="stat_1" class="gt_row gt_center">84 (10), 64 82 121</td>
+<td headers="stat_2" class="gt_row gt_center">88 (8), 67 87 112</td>
+<td headers="p.value" class="gt_row gt_center"><0.001</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">Hip Girth</td>
+<td headers="stat_1" class="gt_row gt_center">96 (7), 79 95 128</td>
+<td headers="stat_2" class="gt_row gt_center">98 (6), 82 97 119</td>
+<td headers="p.value" class="gt_row gt_center"><0.001</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">Thigh Girth</td>
+<td headers="stat_1" class="gt_row gt_center">57.2 (4.6), 46.3 56.4 75.7</td>
+<td headers="stat_2" class="gt_row gt_center">56.5 (4.2), 46.8 56.0 70.0</td>
+<td headers="p.value" class="gt_row gt_center">0.078</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">Flexed Bicep Girth</td>
+<td headers="stat_1" class="gt_row gt_center">28.1 (2.7), 22.4 27.8 40.3</td>
+<td headers="stat_2" class="gt_row gt_center">34.4 (3.0), 25.6 34.4 42.4</td>
+<td headers="p.value" class="gt_row gt_center"><0.001</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">Forearm Girth</td>
+<td headers="stat_1" class="gt_row gt_center">23.76 (1.68), 19.60 23.60 30.80</td>
+<td headers="stat_2" class="gt_row gt_center">28.24 (1.78), 22.70 28.40 32.50</td>
+<td headers="p.value" class="gt_row gt_center"><0.001</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">Knee Girth</td>
+<td headers="stat_1" class="gt_row gt_center">35.26 (2.58), 29.00 35.00 49.00</td>
+<td headers="stat_2" class="gt_row gt_center">37.20 (2.27), 31.10 37.00 45.70</td>
+<td headers="p.value" class="gt_row gt_center"><0.001</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">Calf Girth</td>
+<td headers="stat_1" class="gt_row gt_center">35.01 (2.61), 28.40 34.85 45.40</td>
+<td headers="stat_2" class="gt_row gt_center">37.21 (2.65), 28.90 37.30 47.70</td>
+<td headers="p.value" class="gt_row gt_center"><0.001</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">Ankle Girth</td>
+<td headers="stat_1" class="gt_row gt_center">21.21 (1.44), 17.40 21.10 26.00</td>
+<td headers="stat_2" class="gt_row gt_center">23.16 (1.73), 16.40 23.00 29.30</td>
+<td headers="p.value" class="gt_row gt_center"><0.001</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">Wrist Girth</td>
+<td headers="stat_1" class="gt_row gt_center">15.06 (0.85), 13.00 15.00 18.20</td>
+<td headers="stat_2" class="gt_row gt_center">17.19 (0.91), 14.60 17.10 19.60</td>
+<td headers="p.value" class="gt_row gt_center"><0.001</td></tr>
+  </tbody>
+  
+  <tfoot class="gt_footnotes">
+    <tr>
+      <td class="gt_footnote" colspan="4"><sup class="gt_footnote_marks">1</sup> Mean (SD), Minimum Median Maximum</td>
+    </tr>
+    <tr>
+      <td class="gt_footnote" colspan="4"><sup class="gt_footnote_marks">2</sup> Two Sample t-test</td>
+    </tr>
+  </tfoot>
+</table>
+</div>
+</div>
+</div>
+<div id="machine-learning" class="section level1">
+<h1>Machine Learning</h1>
+<div id="bootstrapping" class="section level3">
+<h3>Bootstrapping</h3>
+<pre class="r"><code># Obtain 95% confidence interval around a mean using standard SE formula
+
+# Get mean of new COVID-19 deaths in NYC in 2022
+ny_covid22 &lt;- covid_raw %&gt;%
+# filter to NY
+  filter(state == &quot;New York&quot;) %&gt;%
+  arrange(date) %&gt;%
+# calculate new deaths
+  mutate(new_deaths = deaths - lag(deaths)) %&gt;%
+# filter to dates in year 2022
+  filter(date &gt;= &quot;2022-01-01&quot;)
+
+mean_nd &lt;- ny_covid22 %&gt;%
+  pull(new_deaths) %&gt;%
+  mean()
+
+standard_ci &lt;- ny_covid22 %&gt;%
+  summarize(mean_nd = mean(new_deaths),
+            total_n = n(),
+            se = sd(new_deaths)/sqrt(total_n),
+            lower_ci = mean_nd - 1.96*se,
+            upper_ci = mean_nd + 1.96*se) %&gt;%
+  mutate(pretty_ci = str_c(round(mean_nd,2), &quot; (&quot;, round(lower_ci,2), &quot;, &quot;, round(upper_ci,2), &quot;)&quot;))
+
+ci_out &lt;- standard_ci %&gt;%
+  pull(pretty_ci)</code></pre>
+<p>The mean number and 95% confidence interval of daily new COVID-19
+deaths reported in New York since 01/01/2022 is 47.24 (30, 64.47).</p>
+<pre class="r"><code># Obtain 95% confidence interval around a mean using bootstrapping
+
+# create functions
+get_mean &lt;- function(df){
+  mean &lt;- df %&gt;%
+    pull(new_deaths) %&gt;%
+    mean()
+  return(mean)
+}
+create_bootstrap &lt;- function(df){
+  boot &lt;- df %&gt;%
+    slice_sample(prop = 1, replace = TRUE) # pull sample the same size as original
+  return(boot)
+}
+# combine functions
+mean_bootstrap &lt;- function(df){
+  boot_m &lt;- create_bootstrap(df) %&gt;%
+    get_mean()
+  return(boot_m)
+}
+
+# get boostrapped results and put into a tibble
+boot_res &lt;- map_dbl(1:2000, function(x) mean_bootstrap(ny_covid22))
+res_tibble &lt;- tibble(run = 1:2000, mean = boot_res)
+
+# get boostrapped confidence interval with quantiles
+boot_ci &lt;- res_tibble %&gt;%
+  summarize(lower_ci = quantile(mean, 0.025),
+         upper_ci = quantile(mean, 0.975))
+
+# plot the distribution of boostrapped data
+ggplot(data = res_tibble) +
+  geom_histogram(aes(x = mean), color = &quot;white&quot;, fill = &quot;darkgrey&quot;) +
+  theme_bw() +
+  labs(title = &quot;Bootstrapped Distribution&quot;)</code></pre>
+<p><img src="R_sample_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>The bootstrapped 95% CI for number of new deaths reported in New York
+from 01/01/22 onward is 34.533557, 66.3423937.</p>
+</div>
+<div id="predictive-model-building" class="section level3">
+<h3>Predictive Model Building</h3>
+<p>Using k-fold cross validation, CART modeling, and logistic regression
+modeling</p>
+<pre class="r"><code># Step 1: Split data into training and test sets
+
+biometrics_pred &lt;- biometrics_log %&gt;%
+# factor outcome and gender
+  mutate(gender_fac = factor(gender, levels = c(&#39;Female&#39;, &#39;Male&#39;)),
+         wt = if_else(overweight == 0, &#39;Not_overweight&#39;, &#39;Overweight&#39;),
+         wt_fac = factor(wt, levels = c(&#39;Not_overweight&#39;, &#39;Overweight&#39;))) %&gt;%
+# remove variables
+  select(-id, -obese, -overweight, -age, -weight, -wt, -height, -bmi, -gender)
+
+# check distribution of outcome overweight in total dataset
+biometrics_pred %&gt;%
+  group_by(wt_fac) %&gt;%
+  summarize(n = n()) %&gt;%
+  mutate(proportion = n / sum(n))</code></pre>
+<pre><code>## # A tibble: 2 × 3
+##   wt_fac             n proportion
+##   &lt;fct&gt;          &lt;int&gt;      &lt;dbl&gt;
+## 1 Not_overweight   357      0.704
+## 2 Overweight       150      0.296</code></pre>
+<pre class="r"><code>#split data, 75% training
+split_data &lt;- initial_split(biometrics_pred, prop = 0.75, strata = wt_fac)
+      # stratify so proportion of outcome is the same between training/test
+train_dat &lt;- training(split_data)
+test_dat &lt;- testing(split_data)
+
+# Check that distribution of outcome is similar to total dataset in training and test sets
+train_dat %&gt;%
+  group_by(wt_fac) %&gt;%
+  summarize(n = n()) %&gt;%
+  mutate(proportion = n / sum(n))</code></pre>
+<pre><code>## # A tibble: 2 × 3
+##   wt_fac             n proportion
+##   &lt;fct&gt;          &lt;int&gt;      &lt;dbl&gt;
+## 1 Not_overweight   267      0.704
+## 2 Overweight       112      0.296</code></pre>
+<pre class="r"><code>test_dat %&gt;%
+  group_by(wt_fac) %&gt;%
+  summarize(n = n()) %&gt;%
+  mutate(proportion = n / sum(n))</code></pre>
+<pre><code>## # A tibble: 2 × 3
+##   wt_fac             n proportion
+##   &lt;fct&gt;          &lt;int&gt;      &lt;dbl&gt;
+## 1 Not_overweight    90      0.703
+## 2 Overweight        38      0.297</code></pre>
+<p>The distribution of outcome (overweight) in the training and test
+data appears equal.</p>
+<pre class="r"><code>logistic_mod &lt;- train(
+  form = wt_fac ~ ., # formula
+  data = train_dat,  # training data
+  trControl = trainControl(method = &quot;cv&quot;, # cross-validation
+                           number = 10, # 10-fold 
+                           summaryFunction = twoClassSummary, # obtain ROC
+                           classProbs = TRUE, # obtain ROC
+                           savePredictions = &quot;final&quot;), # plot ROC/AUC
+  metric = &quot;ROC&quot;, # use ROC/AUC
+  method = &quot;glm&quot;, # glm function
+  family = &quot;binomial&quot; # logistic regression
+)</code></pre>
+<p>The 10-fold cross-validated ROC/AUC (10-fold) of this model on the
+training dataset is <strong>0.968839</strong>.</p>
+<pre class="r"><code>## tune based on ROC/AUC
+class_tree &lt;- train(
+  form = wt_fac ~ ., # formula
+  data = train_dat, # training data
+  method = &quot;rpart&quot;, # CART
+  trControl = trainControl(method = &quot;cv&quot;, # cross validation
+                           number = 10, # 10-fold
+                           summaryFunction = twoClassSummary, # obtain ROC
+                           classProbs = TRUE, # obtain ROC
+                           savePredictions = &quot;final&quot;), # save for plotting ROC/AUC
+  metric = &quot;ROC&quot; # use ROC/AUC
+  )
+
+# cross-validated model ROC/AUC vs different complexity parameters
+plot(class_tree)</code></pre>
+<p><img src="R_sample_files/figure-html/CART_training-1.png" width="672" /></p>
+<p>The best reported ROC/AUC value to maximize performance is
+<strong>0.0491071</strong>.</p>
+<pre class="r"><code># plot final model
+rpart.plot(class_tree$finalModel)</code></pre>
+<p><img src="R_sample_files/figure-html/final_CART_model-1.png" width="672" /></p>
+<pre class="compare"><code>
+# compare cross-validated ROC/AUC of logistic and CART to see which model is best
+compare_mods &lt;- resamples(list(&quot;Logistic&quot;=logistic_mod, 
+                             &quot;CART&quot; = class_tree))
+
+dotplot(compare_mods, metric = &quot;ROC&quot;)
+</code></pre>
+<p>The <strong>logistic model</strong> performs better on the training
+data with the AUC=0.97 compared to 0.85.</p>
+<pre class="r"><code># create a ROC plot and report the AUC for final logistic model on the test set
+log_pred_prob &lt;- predict(logistic_mod, newdata = test_dat, type = &quot;prob&quot;) 
+        # type = &quot;prob&quot; gives predicted probabilities
+
+# merge datasets
+log_test_pred_df &lt;- test_dat %&gt;%
+  bind_cols(log_pred_prob)
+
+log_test_roc &lt;- roc(wt_fac ~ Overweight, data = log_test_pred_df)
+
+# plot ROC values
+ggroc(log_test_roc) +
+  theme_bw()</code></pre>
+<p><img src="R_sample_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>The AUC for my final logistic model is <strong>0.9588</strong>.</p>
+<p>This is a high AUC value and suggests the model performs strongly on
+the test data.</p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
