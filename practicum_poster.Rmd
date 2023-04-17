@@ -1,0 +1,10 @@
+---
+title: "Practicum Poster"
+output: html_document
+---
+
+## Multistate Salmonellosis Investigations related to Backyard Poultry Exposure
+
+In collaboration with New York City Department of Health and Mental Hyigene, Bureau of Communicable Disease.
+
+![](Images/APEX_Poster_alh2233_final copy.pdf){width=800px height=1070px}

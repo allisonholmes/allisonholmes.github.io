@@ -1,0 +1,8 @@
+---
+title: "GIS Poster"
+output: html_document
+---
+
+## The Contagion of Vaccine Hestiancy
+
+![](Images/alh2233_poster2.pdf){width=800px height=1200px}

@@ -9,11 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Allison Holmes" />
 
-<meta name="date" content="2023-04-17" />
 
-<title>SAS_sample</title>
+<title>SAS Sample</title>
 
 <script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -31,6 +29,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -230,6 +231,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -237,6 +301,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -255,6 +329,21 @@ $(document).ready(function () {
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Projects
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="practicum_poster.html">Practicum Poster</a>
+    </li>
+    <li>
+      <a href="GIS_poster.html">GIS Poster</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Code Samples
      
     <span class="caret"></span>
@@ -263,8 +352,12 @@ $(document).ready(function () {
     <li>
       <a href="R_sample.html">R</a>
     </li>
-    <li class="dropdown-header">SAS</li>
-    <li class="dropdown-header">SQL</li>
+    <li>
+      <a href="SAS_sample.html">SAS</a>
+    </li>
+    <li>
+      <a href="SQL_sample.html">SQL</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -299,30 +392,16 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">SAS_sample</h1>
-<h4 class="author">Allison Holmes</h4>
-<h4 class="date">2023-04-17</h4>
+<h1 class="title toc-ignore">SAS Sample</h1>
 
 </div>
 
-<div id="TOC">
-<ul>
-<li><a href="#r-markdown" id="toc-r-markdown">R Markdown</a></li>
-</ul>
-</div>
 
-<div id="r-markdown" class="section level2">
-<h2>R Markdown</h2>
-<p>This is an R Markdown document. Markdown is a simple formatting
-syntax for authoring HTML, PDF, and MS Word documents. For more details
-on using R Markdown see <a href="http://rmarkdown.rstudio.com"
-class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>When you click the <strong>Knit</strong> button a document will be
-generated that includes both content as well as the output of any
-embedded R code chunks within the document. You can embed an R code
-chunk like this:</p>
-<pre class="sashtml"><code>
-***********************************USER INSTRUCTIONS OVERVIEW***************************************
+<p>Cleaning and re-coding surveillance data for monthly report to
+CDC.</p>
+<div id="overview" class="section level3">
+<h3>Overview</h3>
+<pre class="r"><code>***********************************USER INSTRUCTIONS OVERVIEW***************************************
 
 1. In SECTION 1 &amp; 2, Change diagnosis year (DXYR)
 2. Highlight &amp; run SECTION 1 -- Import MAVEN data (events) into SAS &amp; check all case count for a given year
@@ -342,10 +421,12 @@ libname M odbc noprompt=&quot;SERVER=server_name;DRIVER=SQL Server Native Client
 DATABASE=db_name&quot; schema=DBO;
 
 libname mav &#39;\\pathname\SAS_Data&#39;; 
-run;
-
-
-*******************************************************************************************
+run;</code></pre>
+</div>
+<div id="importing-event-data" class="section level3">
+<h3>Importing event data</h3>
+<p>Filtering to year-end cases for 2021</p>
+<pre class="r"><code>*******************************************************************************************
   SECTION 1 -- Import MAVEN data (events) into SAS &amp; check all case count for a given year
 *******************************************************************************************;
 data events_check; set mav.MAVEN_EVENTS;
@@ -366,9 +447,11 @@ quit;run;
 proc freq data=events_check;
 table disease_status * investigation_status / nopercent norow nocol missing;
 where disease_status IN (&#39;CONTACT&#39;,&#39;NOT_A_CASE&#39;,&#39;SUSPECT&#39;,&#39;UNRESOLVED&#39;);
-quit;run;
-
-******************************************************************************************
+quit;run;</code></pre>
+</div>
+<div id="import-and-merge-datasets" class="section level3">
+<h3>Import and merge datasets</h3>
+<pre class="r"><code>******************************************************************************************
   SECTION 2 -- Import &amp; merge all MAVEN data (events &amp; TYPPTY &amp; enteric)
 ******************************************************************************************;
 
@@ -452,10 +535,11 @@ merge events (in=a)
         typpty enteric; *keeping cases in filtered EVENTS dataset;
 by EVENT_ID;
 if a;
-run;
-</code></pre>
-<pre class="sashtml"><code>
-*************************************************************************
+run;</code></pre>
+</div>
+<div id="clean-lab-data" class="section level3">
+<h3>Clean lab data</h3>
+<pre class="r"><code>*************************************************************************
   SECTION 3 -- Pull MAVEN lab data &amp; merge with all MAVEN data
 *************************************************************************;
 
@@ -608,10 +692,11 @@ table serotype / missing; run;
     if EVENT_ID=&#39;103665904&#39; then DELETE; * delete cases we are not reporting;
 
     run;
-*/
-</code></pre>
-<pre class="sashtml"><code>
-*************************************************************************
+*/</code></pre>
+</div>
+<div id="recode-variables-to-cdc-format" class="section level3">
+<h3>Recode variables to CDC format</h3>
+<pre class="r"><code>*************************************************************************
   SECTION 4 -- RECODE FOR CDC
 *************************************************************************;
 
@@ -1016,10 +1101,11 @@ quit;run;
 /*Drop REPORT_TO_CDC*/
 data recode; set recode;
 drop REPORT_TO_CDC;
-run;
-</code></pre>
-<pre class="sashtml"><code>
-*************************************************************************
+run;</code></pre>
+</div>
+<div id="export-to-excel" class="section level3">
+<h3>Export to Excel</h3>
+<pre class="r"><code>*************************************************************************
   SECTION 5 -- CREATING THE EXCEL FILE FOR CDC
 *************************************************************************;
 
@@ -1044,10 +1130,12 @@ run;
 PROC EXPORT DATA= CDC.NYC_TyphiCases_2021_closeout
 OUTFILE= &quot;\\pathname\Electronic Files sent to CDC\2023\NYC_TyphiCases.xls&quot;
 DBMS=EXCEL REPLACE; SHEET=&quot;NYC_TyphiCases&quot;; /*edit path*/
-RUN;
-</code></pre>
-<pre class="sashtml"><code>
-/***AFTER SUBMISSION TO CDC -
+RUN;</code></pre>
+</div>
+<div id="check-that-cases-are-marked-as-transmitted"
+class="section level3">
+<h3>Check that cases are marked as transmitted</h3>
+<pre class="r"><code>/***AFTER SUBMISSION TO CDC -
     CHANGE MAVEN&#39;s [Administrative] &quot;Report/Sent case forms to CDC&quot; TO YES&quot;
     UPDATE &quot;Date last sent&quot;
 ***/
@@ -1068,15 +1156,13 @@ proc print data=merged_maven;
 where BORO NE &#39;OUTSIDE NYC&#39; AND
         REPORT_TO_CDC = &#39;Yes&#39;;
 var event_id disease_status dxyr disease_status_final investigation_status interview_status boro;
-run;
-</code></pre>
-<p>Note that the <code>echo = FALSE</code> parameter was added to the
-code chunk to prevent printing of the R code that generated the
-plot.</p>
+run;</code></pre>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -1109,6 +1195,35 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

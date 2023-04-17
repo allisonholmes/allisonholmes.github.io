@@ -3,12 +3,20 @@ output_dir: "."
 navbar:
   title: "Home"
   left:
-  - text: "Code Samples"
-    menu:
-    - text: "R"
-      href: R_sample.html
-    - text: "SAS"
-    - text: "SQL"
+    - text: "Projects"
+      menu:
+      - text: "Practicum Poster"
+        href: practicum_poster.html
+      - text: "GIS Poster"
+        href: GIS_poster.html
+    - text: "Code Samples"
+      menu:
+      - text: "R"
+        href: R_sample.html
+      - text: "SAS"
+        href: SAS_sample.html
+      - text: "SQL"
+        href: SQL_sample.html
   right:
     - text: "About"
       href: about.html
@@ -21,5 +29,5 @@ navbar:
   
 output:
   html_document:
-    toc: true
+    toc: false
     theme: cerulean

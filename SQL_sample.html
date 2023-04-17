@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>SQL Sample</title>
+
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Projects
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="practicum_poster.html">Practicum Poster</a>
+    </li>
+    <li>
+      <a href="GIS_poster.html">GIS Poster</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Code Samples
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="R_sample.html">R</a>
+    </li>
+    <li>
+      <a href="SAS_sample.html">SAS</a>
+    </li>
+    <li>
+      <a href="SQL_sample.html">SQL</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mailto:allison.holmes@caa.columbia.edu">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://github.com/allisonholmes">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://linkedin.com/in/allisonlholmes">
+    <span class="fa fa-linkedin fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">SQL Sample</h1>
+
+</div>
+
+
+<p>Creating a database to store case information of NYC S.
+typhi/paratyphi cases for monthly report to CDC. Fake data loaded in to
+database to query.</p>
+<div id="eer-diagram" class="section level2">
+<h2>EER Diagram</h2>
+<p><embed src="Images/alh2233_EER%20copy.pdf" width="800"
+height="500" /></p>
+</div>
+<div id="sql-code" class="section level2">
+<h2>SQL Code</h2>
+<div id="creating-database-tables-and-indexes" class="section level3">
+<h3>Creating database, tables, and indexes</h3>
+<pre class="r"><code>############################################################################
+###                         FINAL PROJECT                                ###
+###                    Allison Holmes - alh2233                          ###
+############################################################################
+
+# Create the schema
+CREATE SCHEMA typhi_paratyphi;
+
+USE typhi_paratyphi;
+
+
+############################################################################
+###                         CREATE TABLES                                ###
+############################################################################
+    # Note: &quot;evt&quot; is abbreviation used for case/patient IDs at NYC Department of Health and Mental Hygiene
+
+##### CREATE PARENT TABLE ##################################################
+    # Create Demographics table
+CREATE TABLE demographics (
+    PRIMARY KEY (evt),
+    evt MEDIUMINT(7) UNSIGNED,
+    dob DATE,
+    state_of_residence VARCHAR(2),
+    sex VARCHAR(1),
+    food_handler TINYINT(1) UNSIGNED,
+    date_sx_onset DATE,
+    date_first_isolation DATE,
+    serotype VARCHAR(9),
+    international_travel TINYINT(1) UNSIGNED,
+    hospitalized TINYINT(1) UNSIGNED,
+    vaccinated TINYINT(1) UNSIGNED,
+    part_of_outbreak TINYINT(1) UNSIGNED,
+    linked_to_carrier TINYINT(1) UNSIGNED,
+    known_carrier TINYINT(1) UNSIGNED
+);
+
+# Create INDEXES in Demographics table
+CREATE INDEX sx_onset
+    ON demographics(date_sx_onset);
+
+
+##### CREATE LOOKUP TABLE ##################################################
+    # Create Antibiotic table
+CREATE TABLE antibiotics (
+    PRIMARY KEY (med_id),
+    med_id TINYINT(3) UNSIGNED,
+    medication_name VARCHAR(100)
+);
+
+
+##### CREATE CHILD TABLE #1 ##################################################
+    # Create Antibiotic Treatment table
+CREATE TABLE antibiotic_treatment (
+    PRIMARY KEY (evt, med_id, initiation_date),
+    evt MEDIUMINT(7) UNSIGNED,
+    med_id TINYINT(3) UNSIGNED,
+    initiation_date DATE,
+    admin_method VARCHAR(15),
+    duration_days TINYINT(3) UNSIGNED,
+    FOREIGN KEY (evt) REFERENCES demographics(evt),
+    FOREIGN KEY (med_id) REFERENCES antibiotics(med_id)
+);
+
+# Create INDEXES in Antibiotic Treatment table
+CREATE INDEX initiation_date
+    ON antibiotic_treatment(initiation_date);
+
+CREATE INDEX duration
+    ON antibiotic_treatment(duration_days);
+CREATE INDEX med_id
+    ON antibiotic_treatment(med_id);
+
+
+##### CREATE CHILD TABLE #2 ##################################################
+    # Create Antibiotic Sensitivity table
+CREATE TABLE antibiotic_sensitivity (
+    PRIMARY KEY (lab_accession, med_id),
+    evt MEDIUMINT(7) UNSIGNED,
+    lab_accession MEDIUMINT(8) UNSIGNED,
+    med_id TINYINT(3) UNSIGNED,
+    specimen_date DATE,
+    susceptibility VARCHAR(12),
+    FOREIGN KEY (evt) REFERENCES demographics(evt),
+    FOREIGN KEY (med_id) REFERENCES antibiotics(med_id)
+);
+
+# Create INDEXES in Antibiotic Sensitivity table
+CREATE INDEX lab_accession
+    ON antibiotic_sensitivity(lab_accession);
+CREATE INDEX med_id
+    ON antibiotic_sensitivity(med_id);</code></pre>
+</div>
+<div id="creating-triggers" class="section level3">
+<h3>Creating triggers</h3>
+<pre class="r"><code>############################################################################
+###                         TRIGGERS                                     ###
+############################################################################
+
+# Create TRIGGERS in Demographics table
+DELIMITER //
+
+CREATE TRIGGER demo_triggers
+    BEFORE INSERT ON demographics
+    FOR EACH ROW
+BEGIN
+# Rule for male/female
+    IF NEW.sex NOT IN(&quot;M&quot;,&quot;F&quot;) THEN
+        SIGNAL SQLSTATE &#39;HY000&#39;
+        SET MESSAGE_TEXT = &#39;Error: Please enter sex assigned at birth as Male (M) or Female (F)&#39;;
+    END IF;
+
+# Rules that onset date, isolation date cannot be before DOB
+    IF NEW.date_sx_onset &lt; NEW.dob THEN
+        SIGNAL SQLSTATE &#39;HY000&#39;
+        SET MESSAGE_TEXT = &#39;Error: Symptom onset date is before birthdate&#39;;
+    END IF;
+    
+    IF NEW.date_first_isolation &lt; NEW.dob THEN
+        SIGNAL SQLSTATE &#39;HY000&#39;
+        SET MESSAGE_TEXT = &#39;Error: First isolation date is before birthdate&#39;;
+    END IF;
+
+# Rule for serotype entry
+    IF NEW.serotype NOT IN(&quot;Typhi&quot;,&quot;Paratyphi&quot;) THEN
+        SIGNAL SQLSTATE &#39;HY000&#39;
+        SET MESSAGE_TEXT = &#39;Error: Serotype must be typhoidal&#39;;
+    END IF;
+
+# Rules for all yes/no variables
+    IF NEW.food_handler NOT IN(1,0) THEN
+        SIGNAL SQLSTATE &#39;HY000&#39;
+        SET MESSAGE_TEXT = &#39;Error: Please enter 1 for yes, 0 for no&#39;;
+    END IF; 
+    
+    IF NEW.international_travel NOT IN(1,0) THEN
+        SIGNAL SQLSTATE &#39;HY000&#39;
+        SET MESSAGE_TEXT = &#39;Error: Please enter 1 for yes, 0 for no&#39;;
+    END IF;  
+    
+    IF NEW.hospitalized NOT IN(1,0) THEN
+        SIGNAL SQLSTATE &#39;HY000&#39;
+        SET MESSAGE_TEXT = &#39;Error: Please enter 1 for yes, 0 for no&#39;;
+    END IF;      
+
+    IF NEW.vaccinated NOT IN(1,0) THEN
+        SIGNAL SQLSTATE &#39;HY000&#39;
+        SET MESSAGE_TEXT = &#39;Error: Please enter 1 for yes, 0 for no&#39;;
+    END IF; 
+
+    IF NEW.part_of_outbreak NOT IN(1,0) THEN
+        SIGNAL SQLSTATE &#39;HY000&#39;
+        SET MESSAGE_TEXT = &#39;Error: Please enter 1 for yes, 0 for no&#39;;
+    END IF; 
+
+    IF NEW.linked_to_carrier NOT IN(1,0) THEN
+        SIGNAL SQLSTATE &#39;HY000&#39;
+        SET MESSAGE_TEXT = &#39;Error: Please enter 1 for yes, 0 for no&#39;;
+    END IF; 
+
+    IF NEW.known_carrier NOT IN(1,0) THEN
+        SIGNAL SQLSTATE &#39;HY000&#39;
+        SET MESSAGE_TEXT = &#39;Error: Please enter 1 for yes, 0 for no&#39;;
+    END IF;
+    
+END //
+
+# Create TRIGGERS in Antibiotic Treatment table
+DELIMITER //
+
+CREATE TRIGGER treatment_triggers
+    BEFORE INSERT ON antibiotic_treatment
+    FOR EACH ROW
+BEGIN
+    # Rule for medication administration labels
+    IF NEW.admin_method NOT IN(&#39;IM&#39;,&#39;IV&#39;,&#39;Oral&#39;,&#39;Other&#39;) THEN
+        SIGNAL SQLSTATE &#39;HY000&#39;
+        SET MESSAGE_TEXT = &#39;Error: Please enter as IM, IV, Oral, or Other&#39;;
+    END IF;  
+
+END //
+
+# Create TRIGGERS in Antibiotic Sensitivity table
+DELIMITER //
+
+CREATE TRIGGER sensitivity_triggers
+    BEFORE INSERT ON antibiotic_sensitivity
+    FOR EACH ROW
+BEGIN
+    # Rule for susceptibility labels
+    IF NEW.susceptibility NOT IN(&#39;Susceptible&#39;,&#39;Intermediate&#39;,&#39;Resistant&#39;) THEN
+        SIGNAL SQLSTATE &#39;HY000&#39;
+        SET MESSAGE_TEXT = &#39;Error: Please enter as Susceptible, Intermediate, or Resistant&#39;;
+    END IF;  
+
+END //</code></pre>
+</div>
+<div id="entering-fake-data-into-tables-importing-csv-data"
+class="section level3">
+<h3>Entering fake data into tables, importing CSV data</h3>
+<pre class="r"><code>############################################################################
+###                  ENTER DATA INTO TABLES                              ###
+############################################################################
+
+##### ANTIBIOTIC LOOKUP TABLE #############################################
+    # My computer needs this setting in order to import CSVs
+    SET GLOBAL local_infile = ON;
+
+# Import antibiotic lookup table from CSV
+LOAD DATA LOCAL INFILE &#39;Datasets/alh2233_lookup_data copy.csv&#39;
+INTO TABLE antibiotics
+FIELDS TERMINATED BY &#39;,&#39;
+LINES TERMINATED BY &#39;\n&#39;
+IGNORE 1 ROWS
+(med_id, medication_name);
+
+##### DEMOGRAPHICS TABLE ###################################################
+INSERT INTO demographics (evt, dob, state_of_residence, sex, food_handler, date_sx_onset, date_first_isolation,
+    serotype, international_travel, hospitalized, vaccinated, part_of_outbreak,
+    linked_to_carrier, known_carrier)
+    VALUES
+    (1000000, &#39;2000-01-01&#39;, &#39;NY&#39;, &#39;M&#39;, 0, &#39;2022-07-01&#39;, &#39;2022-07-20&#39;, &#39;Typhi&#39;, 1, 1, 0, 0, 0, 0),
+    (1100000, &#39;1996-05-01&#39;, &#39;NY&#39;, &#39;M&#39;, 1, &#39;2022-08-10&#39;, &#39;2022-08-15&#39;, &#39;Paratyphi&#39;, 1, 1, 0, 0, 0, 0),
+    (1200000, &#39;1998-10-30&#39;, &#39;NY&#39;, &#39;M&#39;, 0, &#39;2022-08-21&#39;, &#39;2022-08-30&#39;, &#39;Typhi&#39;, 1, 1, 0, 0, 0, 0),
+    (6200000, &#39;2010-12-01&#39;, &#39;NY&#39;, &#39;M&#39;, 0, &#39;2022-09-01&#39;, &#39;2022-09-07&#39;, &#39;Typhi&#39;, 0, 1, 0, 0, 1, 0),
+    (1400000, &#39;2017-01-21&#39;, &#39;NY&#39;, &#39;F&#39;, 0, &#39;2022-09-06&#39;, &#39;2022-09-10&#39;, &#39;Typhi&#39;, 1, 1, 0, 0, 0, 0),
+    (1500000, &#39;2009-10-01&#39;, &#39;NY&#39;, &#39;M&#39;, 0, &#39;2022-09-10&#39;, &#39;2022-09-15&#39;, &#39;Paratyphi&#39;, 1, 1, 0, 0, 0, 0),
+    (6100000, &#39;1980-06-12&#39;, &#39;NY&#39;, &#39;M&#39;, 0, &#39;2022-09-15&#39;, &#39;2022-09-27&#39;, &#39;Typhi&#39;, 0, 0, 0, 0, 0, 1),
+    (2000000, &#39;2015-05-11&#39;, &#39;NY&#39;, &#39;M&#39;, 0, &#39;2022-09-23&#39;, &#39;2022-09-30&#39;, &#39;Typhi&#39;, 1, 1, 0, 1, 0, 0),
+    (2100000, &#39;2018-02-25&#39;, &#39;NY&#39;, &#39;F&#39;, 0, &#39;2022-10-01&#39;, &#39;2022-10-31&#39;, &#39;Typhi&#39;, 1, 1, 0, 1, 0, 0),
+    (2200000, &#39;2006-03-07&#39;, &#39;NY&#39;, &#39;F&#39;, 0, &#39;2022-11-01&#39;, &#39;2022-11-10&#39;, &#39;Typhi&#39;, 1, 1, 0, 1, 0, 0);
+
+
+##### ANTIBIOTIC TREATMENT TABLE ##########################################
+INSERT INTO antibiotic_treatment (evt, med_id, initiation_date, admin_method, duration_days)
+    VALUES
+    (1000000, 70, &#39;2022-07-20&#39;, &#39;IV&#39;, 12),
+    (1100000, 70, &#39;2022-08-15&#39;, &#39;IV&#39;, 4),    
+    (1200000, 132, &#39;2022-08-30&#39;, &#39;IV&#39;, 5),
+    (6200000, 70, &#39;2022-09-07&#39;, &#39;IV&#39;, 3),
+    (6200000, 70, &#39;2022-09-27&#39;, &#39;IV&#39;, 15),
+    (1400000, 121, &#39;2022-09-10&#39;, &#39;IV&#39;, 12),
+    (1500000, 132, &#39;2022-09-15&#39;, &#39;IV&#39;, 3),
+    (1500000, 70, &#39;2022-09-15&#39;, &#39;IV&#39;, 7),
+    (2000000, 121,&#39;2022-09-30&#39;, &#39;IV&#39;, 3),
+    (2000000, 70,&#39;2022-09-30&#39;, &#39;IV&#39;, 3),
+    (2000000, 132,&#39;2022-09-30&#39;, &#39;IV&#39;, 3),
+    (2000000, 100,&#39;2022-09-30&#39;, &#39;IV&#39;, 3),
+    (2000000, 16,&#39;2022-10-02&#39;, &#39;IV&#39;, 20),
+    (2100000, 16,&#39;2022-11-03&#39;, &#39;IV&#39;, 15),
+    (2100000, 70, &#39;2022-11-03&#39;, &#39;IV&#39;, 2),
+    (2200000, 16,&#39;2022-11-12&#39;, &#39;IV&#39;, 15);
+
+
+##### ANTIBIOTIC SENSITIVITY TABLE ########################################
+INSERT INTO antibiotic_sensitivity (evt, lab_accession, med_id, specimen_date, susceptibility)
+    VALUES
+    (1000000, 10101010, 70, &#39;2022-07-20&#39;, &#39;Susceptible&#39;),
+    (1100000, 11111111, 70, &#39;2022-08-15&#39;, &#39;Susceptible&#39;),
+    (1200000, 12111111, 132, &#39;2022-08-30&#39;, &#39;Susceptible&#39;),
+    (1400000, 14141414, 121, &#39;2022-09-10&#39;, &#39;Susceptible&#39;),
+    (1500000, 15151515, 121, &#39;2022-09-15&#39;, &#39;Resistant&#39;),
+    (1500000, 15151515, 132, &#39;2022-09-15&#39;, &#39;Intermediate&#39;),
+    (1500000, 15151515, 70, &#39;2022-09-15&#39;, &#39;Susceptible&#39;),
+    (6100000, 16000000, 121, &#39;2022-09-27&#39;, &#39;Resistant&#39;),
+    (6100000, 16000000, 70, &#39;2022-09-27&#39;, &#39;Susceptible&#39;),
+    (2000000, 12121212, 121,&#39;2022-09-30&#39;, &#39;Resistant&#39;),
+    (2000000, 12121212, 70,&#39;2022-09-30&#39;, &#39;Resistant&#39;),
+    (2000000, 12121212, 132,&#39;2022-09-30&#39;, &#39;Resistant&#39;),
+    (2000000, 12121212, 100,&#39;2022-09-30&#39;, &#39;Resistant&#39;),
+    (2000000, 12232323, 16,&#39;2022-10-02&#39;, &#39;Susceptible&#39;),
+    (2100000, 11212121, 121, &#39;2022-10-31&#39;, &#39;Resistant&#39;),
+    (2100000, 11212121, 132, &#39;2022-10-31&#39;, &#39;Resistant&#39;),
+    (2100000, 11212121, 100, &#39;2022-10-31&#39;, &#39;Resistant&#39;),
+    (2100000, 11212121, 16, &#39;2022-10-31&#39;, &#39;Susceptible&#39;),
+    (2200000, 12222222, 121, &#39;2022-11-10&#39;, &#39;Resistant&#39;),
+    (2200000, 12222222, 132, &#39;2022-11-10&#39;, &#39;Resistant&#39;),
+    (2200000, 12222222, 100, &#39;2022-11-10&#39;, &#39;Resistant&#39;),
+    (2200000, 12222222, 16, &#39;2022-11-10&#39;, &#39;Susceptible&#39;);</code></pre>
+</div>
+<div id="writing-queries" class="section level3">
+<h3>Writing queries</h3>
+<pre class="r"><code>############################################################################
+###                         QUERIES                                      ###
+############################################################################
+
+### Query #1 ###############################################################
+CREATE VIEW sensitivity_names AS
+SELECT se.evt, se.lab_accession, a.medication_name, se.susceptibility
+FROM antibiotic_sensitivity AS se
+    INNER JOIN antibiotics AS a
+    USING (med_id);
+    
+/*  This view is compiling information for each patient&#39;s antibiotic susceptibility testing in 
+    a readable format (joining medication names rather than numeric codes) that can be quickly
+    queried to see which antibiotics a patient had sensitivity/susceptibility testing for.
+*/
+
+
+### Query #2 ###############################################################
+CREATE TEMPORARY TABLE antibiotics_used AS
+SELECT tx.evt, tx.med_id, a.medication_name, tx.initiation_date, se.specimen_date, se.susceptibility
+FROM antibiotic_treatment AS tx
+    LEFT JOIN antibiotic_sensitivity AS se
+    USING (evt, med_id)
+    
+    LEFT JOIN antibiotics AS a
+    USING (med_id);
+
+SELECT evt, medication_name
+FROM antibiotics_used
+WHERE susceptibility IS NULL;
+
+/* Where any antibiotics used that were not tested for susceptibility?
+    Yes, Ampicillin was used to treat 2 patients without testing for susceptibility.
+
+The temporary table displays all antibiotics used to treat cases and left joins to the antibiotics that
+underwent susceptibility testing and the antibiotic names.
+The query then filters this temporary table to results where susceptibility was not performed to answer the question.
+*/
+
+
+### Query #3 ###############################################################
+WITH all_antibiotics AS
+(
+    SELECT d.evt, COUNT(DISTINCT(tx.med_id)) AS treatments, COUNT(DISTINCT(se.med_id)) AS susc_tested
+    FROM demographics AS d
+        INNER JOIN antibiotic_treatment AS tx
+        USING (evt)
+        
+        INNER JOIN antibiotic_sensitivity AS se
+        USING (evt)
+    GROUP BY evt
+)
+
+SELECT ROUND(AVG(treatments), 2) AS avg_tx, ROUND(AVG(susc_tested), 2) AS avg_susc_tested
+FROM all_antibiotics;
+
+/*
+What is the average number of antibiotic treatments all patients receive and the average number
+of antibiotic susceptibilities tested on all patients?
+    Average treatments: 1.75
+    Average susceptibility tests: 2.50
+CTE displays the count of the total number of medications and tests each patients received.
+The query then takes the average of these numbers.
+    Note: I used demographics table for the EVT and a left join in case a patient has not received any treatment/sensitivity testing.
+*/
+
+
+### Query #4 ###############################################################
+CREATE TABLE case_data_by_month AS
+SELECT YEAR(date_first_isolation) AS year, MONTH(date_first_isolation) AS month, COUNT(evt) AS total_cases, 
+        COUNT(IF(serotype=&#39;Typhi&#39;, evt, NULL)) AS typ_cases, COUNT(IF(serotype=&#39;Paratyphi&#39;, evt, NULL)) AS pty_cases, 
+        COUNT(IF(sex=&#39;M&#39;, evt, NULL)) AS num_male, COUNT(IF(sex=&#39;F&#39;, evt, NULL)) AS num_female,
+        SUM(food_handler) AS num_foodhandlers, SUM(international_travel) AS num_traveled, SUM(hospitalized) AS num_hospitalized,
+        SUM(vaccinated) AS num_vaccinated, SUM(part_of_outbreak) AS outbreak_cases, SUM(linked_to_carrier) AS secondary_cases, 
+        SUM(known_carrier) AS carriers
+FROM demographics
+GROUP BY year, month
+ORDER BY year, month;
+
+/*
+This table represents data pivoted from individual-level in the demographics table (long) to 
+population-level data month-over-month with monthly totals for each category of data collected (wide).
+    Although this is not the exact syntax we used to pivot tables in class, I could not think of another useful
+    way to use this data in a &quot;wide&quot; format.
+This table could be used to analyze trends across all patients in NY diagnosed with typhoid/paratyphoid fever.
+*/
+
+
+### Query #5 ###############################################################
+SELECT a.evt, a.med_id, a.initiation_date AS initiation_1, b.initiation_date AS initiation_2
+FROM antibiotic_treatment AS a
+    INNER JOIN antibiotic_treatment AS b
+    USING (evt, med_id)
+WHERE a.med_id = b.med_id AND a.initiation_date &lt; b.initiation_date;
+
+/*
+Are there any patients who initiated the same antibiotic treatment on two dates?
+    Yes, there is one patient who initiatied med_id 70 on 9/7/2022 and then again on 9/27/2022
+    
+This query shows the multiple initiation dates of a patient&#39;s treatment drug in a single row.  
+*/
+
+
+### Query #6 ###############################################################
+SELECT evt, COUNT(DISTINCT(med_id)) AS num_tx
+FROM antibiotic_treatment
+GROUP BY evt
+HAVING num_tx = (
+    SELECT COUNT(DISTINCT(med_id)) AS num_tx
+    FROM antibiotic_treatment
+    GROUP BY evt
+    ORDER BY num_tx DESC
+    LIMIT 1);
+    
+/*
+Which patient(s) received the most different antibiotics as part of their treatment
+and how many antibiotics?
+    EVT 2000000 received the most number of antibiotics, having received 5 over the course of treatment.
+This query will result with a list of EVTs and the number of treatments for any patient
+with the to the maximum number of treatments (the maximum is the result of the subquery).
+*/
+
+
+### Query #7 ###############################################################
+SELECT evt, tx.med_id AS used_treatment, se.med_id AS sensitivity_tested
+FROM antibiotic_treatment AS tx
+    LEFT JOIN antibiotic_sensitivity AS se
+    USING (evt, med_id)
+    
+UNION
+
+SELECT evt, tx.med_id AS used_treatment, se.med_id AS sensitivity_tested
+FROM antibiotic_treatment AS tx
+    RIGHT JOIN antibiotic_sensitivity AS se
+    USING (evt, med_id);
+
+/* Results display a full join of all patients who have received antibiotics and all
+patients who have received antibiotic susceptibility testing. In theory, this database
+could be used to store data beyond just typhoid/paratyphoid cases. Susceptibility testing
+may be conducted any time a bacteria is cultured. Conversely, antibiotics may be given as
+treatment without susceptibility testing. This table captures all these cases and those cases
+who have only completed susceptibility testing OR received antibiotics, but not both.
+
+UNION is used instead of UNION ALL since we do not want duplicate medications given to one case to be displayed.
+*/
+
+
+### Query #8 ###############################################################
+SELECT *, COUNT(IF(susceptibility = &#39;Resistant&#39;, med_id, NULL)) OVER(PARTITION BY evt) AS num_resistant,
+    CASE
+        WHEN COUNT(IF(susceptibility = &#39;Resistant&#39;, med_id, NULL)) OVER(PARTITION BY evt) &gt; 10 THEN &#39;XDR&#39;
+        WHEN COUNT(IF(susceptibility = &#39;Resistant&#39;, med_id, NULL)) OVER(PARTITION BY evt) &gt; 2 THEN &#39;MDR&#39;
+        WHEN COUNT(IF(susceptibility = &#39;Resistant&#39;, med_id, NULL)) OVER(PARTITION BY evt) &gt; 0 THEN &#39;Some Resistance&#39;
+        WHEN COUNT(IF(susceptibility = &#39;Resistant&#39;, med_id, NULL)) OVER(PARTITION BY evt) = 0 THEN &#39;Not Resistant&#39;
+    END AS resistance_category
+FROM antibiotic_sensitivity;
+
+/* Add an aggregated column to the antibiotic_sensitivity table displaying the total number of antibiotics each case shows resistance
+to and categorize the resistance into Not Resistant, Some Resistance, MDR, and XDR using numerical cutoffs.
+I used OVER(PARTITION BY) since I want the resistance category to be displayed by case EVT.
+*/
+
+
+### Query #9 ###############################################################
+SELECT evt, num_resistant, DENSE_RANK() OVER(ORDER BY num_resistant DESC) AS resistance_rank
+FROM 
+    (SELECT *, COUNT(IF(susceptibility = &#39;Resistant&#39;, med_id, NULL)) OVER(PARTITION BY evt) AS num_resistant
+    FROM antibiotic_sensitivity) AS res_totals
+GROUP BY evt, num_resistant;
+
+/* Ranks patients from most to least number of antibiotics they are resistant to.
+I used as DENSE_RANK() in place of a RANK() since I do not want to skip rank values.
+*/
+
+
+### Query #10 ###############################################################
+SELECT a.medication_name, COUNT(evt) AS num_administered
+FROM demographics as d
+    LEFT JOIN antibiotic_treatment AS tx
+    USING (evt)
+    
+    LEFT JOIN antibiotics AS a
+    USING (med_id)
+GROUP BY medication_name
+ORDER BY num_administered DESC
+LIMIT 1;
+
+/* What is the most commonly used medication to treat typhoid/paratyphoid fever in this dataset
+    and how many times was it used?
+    
+    Ampicillin/sulbactam, 7 times
+
+*/</code></pre>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

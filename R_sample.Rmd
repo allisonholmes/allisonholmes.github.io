@@ -1,7 +1,5 @@
 ---
 title: "R Code Samples"
-author: "Allison Holmes"
-date: "04/17/2023"
 output: 
   html_document:
     toc: true

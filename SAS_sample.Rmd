@@ -1,47 +1,47 @@
 ---
-title: "SAS_sample"
-author: "Allison Holmes"
-date: "`r Sys.Date()`"
-output: html_document
+title: "SAS Sample"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
 ---
 
-```{r setup, include=FALSE}
+Cleaning and re-coding surveillance data for monthly report to CDC.
 
-saspath <- "C:/Program Files/SASHome/SASFoundation/9.4/sas.exe"
-sasopts <- "-nosplash -linesize 75"
-knitr::opts_chunk$set(engine="sashtml", engine.path=saspath, 
-        engine.opts=sasopts, comment=NA)
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+# saspath <- "C:/Program Files/SASHome/SASFoundation/9.4/sas.exe"
+# sasopts <- "-nosplash -linesize 75"
+# knitr::opts_chunk$set(engine="sashtml", engine.path=saspath, 
+#         engine.opts=sasopts, comment=NA)
 
 # reference https://www.r-bloggers.com/2019/09/create-rmarkdown-document-with-sas-code-and-output-sas-engine/
 
 ```
 
-``` {r sas_setup, include=FALSE}
+``` {r sas_setup, include = FALSE}
 
-# load the SASmarkdown package
-library(SASmarkdown)
-# set up the options so that knit knows where you SAS executable is
-# set the linesize to be easily readable on letter size paper, portrait
-# and set the knir options using opts_chunk$set().
-saspath <- "C:/Program Files/SASHome/SASFoundation/9.4/sas.exe"
-sasopts <- "-nosplash -linesize 75"
-knitr::opts_chunk$set(engine="sashtml", engine.path=saspath, 
-        engine.opts=sasopts, comment=NA)
-# run these commands to convince yourself that
-# within this knitr session the engine changed.
-knitr::opts_chunk$get()$engine
-knitr::opts_chunk$get()$engine.path
-knitr::opts_chunk$get()$engine.opts
+# # load the SASmarkdown package
+# library(SASmarkdown)
+# # set up the options so that knit knows where you SAS executable is
+# # set the linesize to be easily readable on letter size paper, portrait
+# # and set the knir options using opts_chunk$set().
+# saspath <- "C:/Program Files/SASHome/SASFoundation/9.4/sas.exe"
+# sasopts <- "-nosplash -linesize 75"
+# knitr::opts_chunk$set(engine="sashtml", engine.path=saspath, 
+#         engine.opts=sasopts, comment=NA)
+# # run these commands to convince yourself that
+# # within this knitr session the engine changed.
+# knitr::opts_chunk$get()$engine
+# knitr::opts_chunk$get()$engine.path
+# knitr::opts_chunk$get()$engine.opts
 
 ```
 
-## R Markdown
+### Overview
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r import}
+```{r overview, eval = FALSE}
 
 ***********************************USER INSTRUCTIONS OVERVIEW***************************************
 
@@ -65,6 +65,13 @@ DATABASE=db_name" schema=DBO;
 libname mav '\\pathname\SAS_Data'; 
 run;
 
+```
+
+### Importing event data
+
+Filtering to year-end cases for 2021
+
+```{r import, eval = FALSE}
 
 *******************************************************************************************
   SECTION 1 -- Import MAVEN data (events) into SAS & check all case count for a given year
@@ -89,6 +96,12 @@ table disease_status * investigation_status / nopercent norow nocol missing;
 where disease_status IN ('CONTACT','NOT_A_CASE','SUSPECT','UNRESOLVED');
 quit;run;
 
+```
+
+### Import and merge datasets
+
+```{r merge, eval = FALSE}
+	
 ******************************************************************************************
   SECTION 2 -- Import & merge all MAVEN data (events & TYPPTY & enteric)
 ******************************************************************************************;
@@ -177,7 +190,9 @@ run;
 
 ```
 
-``` {r merge}
+### Clean lab data
+
+``` {r, eval = FALSE}
 
 *************************************************************************
   SECTION 3 -- Pull MAVEN lab data & merge with all MAVEN data
@@ -335,8 +350,10 @@ table serotype / missing; run;
 */
 
 ```
+
+### Recode variables to CDC format
 	
-```{r CDC_recode}
+```{r CDC_recode, eval = FALSE}
 
 *************************************************************************
   SECTION 4 -- RECODE FOR CDC
@@ -747,7 +764,9 @@ run;
 
 ```
 
-```{r export}
+### Export to Excel
+
+```{r export, eval = FALSE}
 
 *************************************************************************
   SECTION 5 -- CREATING THE EXCEL FILE FOR CDC
@@ -778,7 +797,9 @@ RUN;
 
 ```
 
-```{r status_check}
+### Check that cases are marked as transmitted
+
+```{r status_check, eval = FALSE}
 
 /***AFTER SUBMISSION TO CDC -
 	CHANGE MAVEN's [Administrative] "Report/Sent case forms to CDC" TO YES"
@@ -806,5 +827,3 @@ run;
 
 ```
 
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
