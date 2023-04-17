@@ -1,22 +1,22 @@
 # Allison Holmes
 
 
-##[About Me](about.html)
+### [About Me](about.html)
 
-## Projects
+### Projects
 
 [Poster](practicum_poster.html): Multistate Salmonellosis Investigations related to Backyard Poultry Exposure
 
 [Poster](GIS_poster.html): The Contagion of Vaccine Hestiancy
 
 
-## Code Samples
+### Code Samples
 
 [R code](R_sample.html)
 
-[R code](R_sample.html)
+[SAS code](SAS_sample.html)
 
-[R code](R_sample.html)
+[SQL code](SQL_sample.html)
 
 
 
