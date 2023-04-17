@@ -3,11 +3,17 @@
 
 ### [About Me](about.html)
 
+email: [allison.holmes@caa.columbia.edu](mailto:allison.holmes@caa.columbia.edu)
+
+
+
 ### Projects
 
 [Poster](practicum_poster.html): Multistate Salmonellosis Investigations related to Backyard Poultry Exposure
 
 [Poster](GIS_poster.html): The Contagion of Vaccine Hestiancy
+
+
 
 
 ### Code Samples
