@@ -30,3 +30,4 @@ navbar:
 output:
   html_document:
     toc: false
+    
