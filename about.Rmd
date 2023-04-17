@@ -8,6 +8,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ![](Images/IMG_5282 copy.jpeg){width=35%}
 
 
+I am second-year MPH candidate in Epidemiology at the Columbia University Mailman School of Public Health in New York City. I've enjoyed my time getting to know New York and am excited to stay in the city for the foreseeable future. Before my interest in public health brought me to Mailman, I worked in public service at the Tennessee Department of Health through CDC's Public Health Associate Program (PHAP) and as an AmeriCorps Member. My experiences working in the community affirmed the impact good analysis and reporting can have, and affirmed my career goals to contribute to bettering health through data.
+
 ### Resume
 
 ![](Images/Holmes_Allison_Resume copy.pdf){width=800px height=1050px}
